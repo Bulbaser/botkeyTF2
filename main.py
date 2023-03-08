@@ -13,7 +13,7 @@ from steampy.client import Asset
 from SimpleQIWI import *
 from files.dannie import *
 from steampy.exceptions import ApiException, InvalidCredentials
-from SimpleQIWI import  QIWIAPIError
+from SimpleQIWI import QIWIAPIError
 from generator import gener
 from lolzapi import LolzteamApi
 from oplataLolz import check_pay
@@ -70,7 +70,7 @@ async def mainCommands(message: types.Message):
 async def some_callback_handler(callback_query: types.CallbackQuery):
     if callback_query.data == 'withdraw':
         await bot.send_message(callback_query.from_user.id,
-                               text='Введи свой номер телефона QIWI и сумму денег на вывод(Пример : 79999999999 500)')
+                             text='Введи свой номер телефона QIWI и сумму денег на вывод(Пример : 79999999999 500)')
         await send.withdrawalOfMoney.set()
     elif callback_query.data == 'newsLetter':
         await bot.send_message(callback_query.from_user.id, text='Введи текст для рассылки :')
@@ -114,9 +114,9 @@ async def some_callback_handler(callback_query: types.CallbackQuery):
 Продать ключи за {sold} Р/шт''')
     elif callback_query.data == 'sellTf':
         await bot.send_message(callback_query.from_user.id, text=f'''Предложите обмен, с выбранными ключами для продажи
-https://steamcommunity.com/tradeoffer/new/?partner=1056147551&token=LX8mR5Jd и в комментарии укажите *{gener()}*
-После того как вы отправили обмен, подтвердили трейд, отправьте после этого сообщения слово *Готово*, в ином случае вам придется делать процедуру заново''',
-                               parse_mode="Markdown")
+https://steamcommunity.com/tradeoffer/new/?partner=1056147551&token=LX8mR5Jd и в комментарии укажите *{gener()}* 
+После того как вы отправили обмен, подтвердили трейд, отправьте после этого сообщения слово *Готово*, в ином случае 
+вам придется делать процедуру заново''', parse_mode="Markdown")
         await send.sellKeys.set()
     elif callback_query.data == 'buyTf':
         await bot.send_message(callback_query.from_user.id, 'Выберите метод оплаты',
@@ -128,7 +128,6 @@ https://steamcommunity.com/tradeoffer/new/?partner=1056147551&token=LX8mR5Jd и 
         await buyTfQiwi(callback_query.data, callback_query)
 
 
-#######################FSM#########################
 # Продажа ключей
 @dp.message_handler(state=send.sellKeys)
 async def sellTf(message: types.Message, state: FSMContext):
@@ -158,20 +157,22 @@ async def sellTf(message: types.Message, state: FSMContext):
                                                                f'Ваши ключи в количестве {total} были приняты, ожидайте пополнения баланса в профиле')
                                         add_money_user(total_price, message.from_user.id)
                                         buyKeys(int(total))
-                                        userNameTg = message.from_user.first_name
-                                        userIdTg = message.from_user.id
                                         await bot.send_message('878562927',
-                                                               f'{userNameTg}({userIdTg}) купил ключи в количестве {kolvo_keys_TF2}'
+                                                               f'{message.from_user.first_name}({message.from_user.id}) купил ключи в количестве {kolvo_keys_TF2}'
                                                                f'штук за {total_price} рублей.')
                                         await bot.send_message(message.from_user.id,
-                                                               "Денежные средства были успешно добавлены в профиль. Для вывода зайдите в свой профиль, и запросите вывод средств")
-                                        await bot.send_message(message.from_user.id, '''Спасибо за покупку/продажу, будем рады вам снова!
-Оставьте отзыв в нашей теме : https://lolz.guru/threads/3443335/
-Это помогает наш ему развитию, спасибо вам!''')
+                                                               "Денежные средства были успешно добавлены в профиль. "
+                                                               "Для вывода зайдите в свой профиль, и запросите вывод "
+                                                               "средств")
+                                        await bot.send_message(message.from_user.id, '''Спасибо за покупку/продажу, 
+                                        будем рады вам снова! Оставьте отзыв в нашей теме : 
+                                        https://lolz.guru/threads/3443335/ Это помогает наш ему развитию, 
+                                        спасибо вам!''')
                                         break
                                 else:
                                     await bot.send_message(message.from_user.id,
-                                                           'В трейде обнаружены лишние вещи, трейд был отменен, сделайте процедуру заново, будьте внимательны')
+                                                           'В трейде обнаружены лишние вещи, трейд был отменен, '
+                                                           'сделайте процедуру заново, будьте внимательны')
                                     steam_client.decline_trade_offer(steam_trade_offer)
                                     break
                     else:
@@ -239,7 +240,7 @@ async def nextBuyTf(message: types.Message, state: FSMContext):
         if int(total) <= int(inv_steam()):
             buy, sold = keyses()
             price = (int(buy) * int(total)) + ((int(buy) * int(total)) * 0.05)
-            url = f'https://lolz.guru/market/balance/transfer?username={user_lolz}&amount={int(price)}&comment={comment}'
+            url = f'https://zelenka.guru/market/balance/transfer?username={user_lolz}&amount={int(price)}&comment={comment}'
             await message.answer(
                 f'❗️ Важно! Не меняйте сумму оплаты и комментарий, иначе зачисление не будет произведено!\n\nСсылка '
                 f'для оплаты находится ниже 👇',
