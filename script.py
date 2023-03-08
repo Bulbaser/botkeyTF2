@@ -6,7 +6,7 @@ from files.parsing_price_keys_tf2 import tf2lavka
 import time
 from files.dannie import api_tg_bot
 
-bot = Bot(token = api_tg_bot)
+bot = Bot(token=api_tg_bot)
 
 async def spam():
     while True:

@@ -2,7 +2,7 @@ import requests
 
 
 class LolzteamApi:
-    def __init__(self, token, userid=None, baseUrl="https://api.lolz.guru/"):
+    def __init__(self, token, userid=None, baseUrl="https://api.zelenka.guru/"):
         self.token = token
         self.userid = userid
         self.baseUrl = baseUrl
